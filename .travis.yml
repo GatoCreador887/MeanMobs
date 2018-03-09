@@ -12,3 +12,7 @@ notifications:
   email: false
 install: echo "Skip assemble"
 script: "./gradlew build --continue --stacktrace"
+addons:
+  apt:
+    packages:
+    - oracle-java8-installer
