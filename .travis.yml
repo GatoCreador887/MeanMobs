@@ -1,6 +1,11 @@
 language: java
 jdk:
 - oraclejdk8
+before_install:
+- openssl aes-256-cbc -k "$deployKeyEncryptionKey" -in deployment/deploy_key.pem.enc
+  -out deployment/deploy_key.pem -d
+- chmod +x gradlew
+- chmod +x deployment/deploy.sh
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -12,6 +17,9 @@ notifications:
   email: false
 install: echo "Skip assemble"
 script: "./gradlew build --continue --stacktrace"
+after_success:
+- cd deployment/
+- source deploy.sh
 addons:
   apt:
     packages:
