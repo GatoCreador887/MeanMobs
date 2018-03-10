@@ -2,6 +2,7 @@ package creepersgalore.meanmobs.init.entity;
 
 import java.util.Random;
 
+import creepersgalore.meanmobs.MeanMobs;
 import creepersgalore.meanmobs.init.MeanMobsConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityList;
@@ -22,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class EntityUtils {
 	
@@ -147,7 +149,7 @@ public class EntityUtils {
 	                    	summoner.playSound(SoundEvents.ENTITY_WITHER_SHOOT, 1.0F, 2.0F);
 		                    newMob.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1.0F, 0.85F);
 
-		                    if (Minecraft.getMinecraft().world != null && Minecraft.getMinecraft().world.isRemote)
+		                    if (MeanMobs.side == Side.CLIENT && Minecraft.getMinecraft().world != null && Minecraft.getMinecraft().world.isRemote)
 		                    {
 		                    	for (int e1 = 0; e1 < 10; ++e1)
 		                    	{
