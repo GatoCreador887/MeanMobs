@@ -14,9 +14,6 @@ notifications:
   email: false
 install: echo "Skip assemble"
 script: "./gradlew build --continue --stacktrace"
-after_success:
-- cd deployment/
-- source deploy.sh
 addons:
   apt:
     packages:
