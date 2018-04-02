@@ -3,6 +3,9 @@ meanmobs.config.title=MeanMobs Config
 meanmobs.general.endlessnightmare=Endless Nightmare
 meanmobs.general.endlessnightmare.tooltip=Set to true to make the earth stop on midnight.
 
+meanmobs.general.apocalypsemode=Apocalypse Mode
+meanmobs.general.apocalypsemode.tooltip=Set to true to make no non-undead mobs spawn.
+
 meanmobs.general.mobbuffs=Mob Buffs
 meanmobs.general.mobbuffs.tooltip=Settings for mob buffs, such as extra health or speed.
 meanmobs.general.mobbuffs.maxspeedboost=Max Speed Boost

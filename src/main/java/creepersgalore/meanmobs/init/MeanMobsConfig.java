@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class MeanMobsConfig {
 	
 	public static boolean endlessNightmare = false;
+	public static boolean apocalypseMode = false;
 	
 	public static final MobBuffs mobBuffs = new MobBuffs();
 	public static final Summoning summoning = new Summoning();

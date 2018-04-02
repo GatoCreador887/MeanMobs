@@ -1,10 +1,5 @@
 package creepersgalore.meanmobs.init.eventhandlers;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
-
 import creepersgalore.meanmobs.init.MeanMobsConfig;
 import creepersgalore.meanmobs.init.entity.EntityUtils;
 import creepersgalore.meanmobs.init.entity.ai.EntityAIAttackDamager;
@@ -13,44 +8,22 @@ import creepersgalore.meanmobs.init.entity.ai.EntityAIBreakFenceGate;
 import creepersgalore.meanmobs.init.entity.ai.EntityAIBreakTorch;
 import creepersgalore.meanmobs.init.entity.ai.EntityAIBreakTrapdoor;
 import creepersgalore.meanmobs.init.entity.ai.SpiderAISpiderTarget;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIRestrictSun;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityHusk;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigateGround;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
@@ -58,6 +31,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class MeanMobsEntityEditor {
+	
+	@SubscribeEvent
+	public static void onEntitySpawn(LivingSpawnEvent.SpecialSpawn event) {
+		
+		if (event.getEntityLiving().getCreatureAttribute() != EnumCreatureAttribute.UNDEAD && MeanMobsConfig.apocalypseMode) {
+			
+			event.setCanceled(true);
+			
+		}
+		
+	}
 	
 	@SubscribeEvent
 	public static void onZombieJoinWorld(EntityJoinWorldEvent event) {
