@@ -1,10 +1,10 @@
-package creepersgalore.meanmobs.init;
+package gatogamer887.meanmobs.init;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import creepersgalore.meanmobs.MeanMobs;
-import creepersgalore.meanmobs.MeanMobsReference;
+import gatogamer887.meanmobs.MeanMobs;
+import gatogamer887.meanmobs.MeanMobsReference;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.common.config.Configuration;
@@ -17,10 +17,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class MeanMobsConfig {
 	
 	public static boolean endlessNightmare = false;
-	public static boolean apocalypseMode = false;
 	
 	public static final MobBuffs mobBuffs = new MobBuffs();
 	public static final Summoning summoning = new Summoning();
+	public static final ApocalypseMode apocalypseMode = new ApocalypseMode();
+	public static final Debugging debugging = new Debugging();
 	
 	public static class MobBuffs {
 		
@@ -33,6 +34,9 @@ public class MeanMobsConfig {
 		
 		public String[] zombieGearPresets = {
 				
+				"default,25,minecraft:wooden_sword,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,35,minecraft:stone_sword,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,20,minecraft:wooden_pickaxe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
 				"default,30,minecraft:stone_pickaxe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
 				"default,50,minecraft:iron_pickaxe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
 				"default,40,minecraft:stone_axe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
@@ -45,7 +49,16 @@ public class MeanMobsConfig {
 		
 		public String[] skeletonGearPresets = {
 				
+				"default,3,empty,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,25,minecraft:wooden_sword,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,35,minecraft:stone_sword,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,20,minecraft:wooden_pickaxe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,30,minecraft:stone_pickaxe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,50,minecraft:iron_pickaxe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,40,minecraft:stone_axe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
+				"default,65,minecraft:iron_axe,empty,empty,empty,empty,empty,1.0,1.0,1.0",
 				"Fallen Archer,80,minecraft:bow,empty,minecraft:leather_boots,minecraft:leather_leggings,minecraft:chainmail_chestplate,minecraft:iron_helmet,1.0,1.5,1.5",
+				"Fallen Warrior,90,minecraft:iron_sword,empty,minecraft:leather_boots,minecraft:leather_leggings,minecraft:chainmail_chestplate,minecraft:iron_helmet,1.0,1.5,1.5",
 				"Undying Skeleton,90,minecraft:bow,minecraft:totem_of_undying,empty,empty,empty,empty,1.0,1.0,1.0"
 				
 		};
@@ -62,6 +75,22 @@ public class MeanMobsConfig {
 		public int zombieSummonChance = 80;
 		@Config.RangeInt(min = 1, max = Integer.MAX_VALUE)
 		public int skeletonSummonChance = 120;
+		
+	}
+	
+	public static class ApocalypseMode {
+		
+		public boolean enabled = false;
+		public String[] allowedSpawns = {};
+		public boolean extraSpawns = false;
+		public int maxSummonTimes = 0;
+		
+	}
+	
+	public static class Debugging {
+		
+		public boolean logSpawningCancellations = false;
+		public boolean logAssistanceSummoning = false;
 		
 	}
 	

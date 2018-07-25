@@ -2,10 +2,10 @@
 {
   "modid": "meanmobs",
   "name": "MeanMobs",
-  "description": "Adds mobs and edits vanilla mob AI.",
+  "description": "Will add mobs and edits vanilla mob AI.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "authorList": ["creepersgalore"],
+  "authorList": ["GatoGamer887"],
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

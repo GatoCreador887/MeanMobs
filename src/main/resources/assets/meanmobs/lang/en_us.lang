@@ -3,9 +3,6 @@ meanmobs.config.title=MeanMobs Config
 meanmobs.general.endlessnightmare=Endless Nightmare
 meanmobs.general.endlessnightmare.tooltip=Set to true to make the earth stop on midnight.
 
-meanmobs.general.apocalypsemode=Apocalypse Mode
-meanmobs.general.apocalypsemode.tooltip=Set to true to make no non-undead mobs spawn.
-
 meanmobs.general.mobbuffs=Mob Buffs
 meanmobs.general.mobbuffs.tooltip=Settings for mob buffs, such as extra health or speed.
 meanmobs.general.mobbuffs.maxspeedboost=Max Speed Boost
@@ -31,3 +28,15 @@ meanmobs.general.summoning.zombiesummonchance=Zombie Summon Chance
 meanmobs.general.summoning.zombiesummonchance.tooltip=1 in §ox§r§e hits will summon another mob.
 meanmobs.general.summoning.skeletonsummonchance=Skeleton Summon Chance
 meanmobs.general.summoning.skeletonsummonchance.tooltip=1 in §ox§r§e hits will summon another mob.
+
+meanmobs.general.apocalypsemode=Apocalypse Mode
+meanmobs.general.apocalypsemode.tooltip=Settings for Apocalypse Mode
+meanmobs.general.apocalypsemode.enabled=Enabled
+meanmobs.general.apocalypsemode.enabled.tooltip=Set to true to enable Apocalypse Mode.
+
+meanmobs.general.debugging=Debugging
+meanmobs.general.debugging.tooltip=Settings for debugging the mod.
+meanmobs.general.debugging.logspawningcancellations=Log Spawning Cancellations
+meanmobs.general.debugging.logspawningcancellations.tooltip=Enable to log mob spawning cancellations during Apocalypse Mode.
+meanmobs.general.debugging.logassistancesummoning=Log Assistance Summoning
+meanmobs.general.debugging.logassistancesummoning.tooltip=Enable to log assistance summoning when a summoner mob is damaged.
