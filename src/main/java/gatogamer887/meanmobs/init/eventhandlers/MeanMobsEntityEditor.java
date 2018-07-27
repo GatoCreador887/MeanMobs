@@ -38,6 +38,7 @@ import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.pathfinding.PathNavigateGround;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -171,8 +172,8 @@ public class MeanMobsEntityEditor {
 			zombie.setBreakDoorsAItask(false);
 			zombie.setCanPickUpLoot(MeanMobsConfig.mobBuffs.lootSystemMode > 0);
 			
-			((PathNavigateGroundBetter) zombie.getNavigator()).setBreakDoors(true);
-			((PathNavigateGroundBetter) zombie.getNavigator()).setEnterDoors(true);
+			((PathNavigateGround) zombie.getNavigator()).setBreakDoors(true);
+			((PathNavigateGround) zombie.getNavigator()).setEnterDoors(true);
 			
 			Set<EntityAITaskEntry> taskEntries = Sets.<EntityAITaskEntry>newLinkedHashSet();
 			taskEntries.addAll(zombie.tasks.taskEntries);
@@ -260,8 +261,8 @@ public class MeanMobsEntityEditor {
 			
 			skeleton.setCanPickUpLoot(MeanMobsConfig.mobBuffs.lootSystemMode > 0);
 			
-			((PathNavigateGroundBetter) skeleton.getNavigator()).setBreakDoors(true);
-			((PathNavigateGroundBetter) skeleton.getNavigator()).setEnterDoors(true);
+			((PathNavigateGround) skeleton.getNavigator()).setBreakDoors(true);
+			((PathNavigateGround) skeleton.getNavigator()).setEnterDoors(true);
 			
 			Set<EntityAITaskEntry> taskEntries = Sets.<EntityAITaskEntry>newLinkedHashSet();
 			taskEntries.addAll(skeleton.tasks.taskEntries);
