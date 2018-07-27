@@ -134,7 +134,7 @@ public class EntityMoveHelperBetter extends EntityMoveHelper
             this.entity.rotationYaw = this.limitAngle(this.entity.rotationYaw, f9, 90.0F);
             this.entity.setAIMoveSpeed((float)(this.speed * this.entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue()));
 
-            if (d2 > (double)this.entity.stepHeight && d2 <= d4 && d0 * d0 + d1 * d1 < (double)Math.max(1.0F, this.entity.width))
+            if (d2 > (double)this.entity.stepHeight && (!this.entity.isInWater() ? d2 <= d4 : true) && d0 * d0 + d1 * d1 < (double)Math.max(1.0F, this.entity.width))
             {
                 this.entity.getJumpHelper().setJumping();
                 this.action = EntityMoveHelperBetter.Action.JUMPING;

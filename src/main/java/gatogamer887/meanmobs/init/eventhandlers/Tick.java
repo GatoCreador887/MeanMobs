@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 import gatogamer887.meanmobs.MeanMobs;
+import gatogamer887.meanmobs.init.MeanMobsConfig;
 import gatogamer887.meanmobs.init.entity.pathfinding.PathNavigateGroundBetter;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLiving;
@@ -28,6 +29,13 @@ public class Tick {
 	@SubscribeEvent
 	public static void tick(WorldTickEvent event) {
 		
+		if (event.world.getGameRules().getBoolean("doDaylightCycle") && MeanMobsConfig.endlessNightmare && event.world.getWorldTime() == 18000L) {
+			
+			event.world.getGameRules().setOrCreateGameRule("doDaylightCycle", "false");
+			MeanMobs.logger.info("Endless Nightmare initiated");
+			
+		}
+		
 		World world = event.world;
 		
 		world.profiler.startSection("MeanMobs-looting");
@@ -36,7 +44,7 @@ public class Tick {
 			
 			if ((living instanceof EntityZombie && !(living instanceof EntityPigZombie)) || living instanceof AbstractSkeleton) {
 				
-				if (!living.world.isRemote && living.canPickUpLoot() && !living.isDead && living.world.getGameRules().getBoolean("mobGriefing"))
+				if (!living.world.isRemote && MeanMobsConfig.mobBuffs.lootSystemMode < 2 && living.isEntityAlive() && living.world.getGameRules().getBoolean("mobGriefing"))
 		        {
 		            for (EntityItem entityitem : living.world.getEntitiesWithinAABB(EntityItem.class, living.getEntityBoundingBox().grow(1.0D, 0.0D, 1.0D)))
 		            {
@@ -51,7 +59,7 @@ public class Tick {
 		                    {
 		                        if (entityequipmentslot.getSlotType() == EntityEquipmentSlot.Type.HAND)
 		                        {
-		                            if (itemstack.getItem() instanceof ItemSword && !(itemstack1.getItem() instanceof ItemSword))
+		                            if (itemstack.getItem() instanceof ItemSword && !(itemstack1.getItem() instanceof ItemSword) && (living instanceof IRangedAttackMob ? !(itemstack1.getItem() instanceof ItemBow) : true))
 		                            {
 		                                flag = true;
 		                            }
@@ -86,25 +94,22 @@ public class Tick {
 		                            	ItemTool itemtool = (ItemTool)itemstack.getItem();
 		                                ItemTool itemtool1 = (ItemTool)itemstack1.getItem();
 		                                
-		                                if (itemtool.getClass() == itemtool1.getClass()) {
-		                                	MeanMobs.logger.info(ToolMaterial.valueOf(itemtool.getToolMaterialName()).getHarvestLevel());
-		                                	MeanMobs.logger.info(ToolMaterial.valueOf(itemtool1.getToolMaterialName()).getHarvestLevel());
-		                                	MeanMobs.logger.info(ToolMaterial.valueOf(itemtool.getToolMaterialName()).getHarvestLevel() > ToolMaterial.valueOf(itemtool1.getToolMaterialName()).getHarvestLevel());
+		                                if (itemtool.getToolClasses(itemstack).equals(itemtool1.getToolClasses(itemstack1))) {
+		                                	
 		                                	if (ToolMaterial.valueOf(itemtool.getToolMaterialName()).getHarvestLevel() > ToolMaterial.valueOf(itemtool1.getToolMaterialName()).getHarvestLevel()) {
 		                                		
 		                                		flag = true;
-		                                		MeanMobs.logger.info("picking item with better harvestlevel");
+		                                		
 		                                	} else if (ToolMaterial.valueOf(itemtool.getToolMaterialName()).getHarvestLevel() == ToolMaterial.valueOf(itemtool1.getToolMaterialName()).getHarvestLevel()) {
 		                                		
 		                                		flag = itemstack.getMetadata() > itemstack1.getMetadata() || itemstack.hasTagCompound() && !itemstack1.hasTagCompound();
-		                                		MeanMobs.logger.info(itemstack.getMetadata());
-			                                	MeanMobs.logger.info(itemstack1.getMetadata());
-			                                	MeanMobs.logger.info(itemstack.getMetadata() > itemstack1.getMetadata());
-			                                	MeanMobs.logger.info(itemstack.hasTagCompound());
-			                                	MeanMobs.logger.info(itemstack1.hasTagCompound());
-			                                	MeanMobs.logger.info(itemstack.hasTagCompound() && !itemstack1.hasTagCompound());
+		                                		
+		                                	} else {
+		                                		
+		                                		flag = false;
+		                                		
 		                                	}
-		                                	MeanMobs.logger.info(flag);
+		                                	
 		                                } else {
 		                                	
 											try {
@@ -134,7 +139,7 @@ public class Tick {
 		                            }
 		                            else
 		                            {
-		                                flag = false;
+		                            	flag = false;
 		                            }
 		                        }
 		                        else if (itemstack.getItem() instanceof ItemArmor && !(itemstack1.getItem() instanceof ItemArmor))

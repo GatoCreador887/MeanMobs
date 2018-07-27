@@ -18,12 +18,33 @@ public class MeanMobsConfig {
 	
 	public static boolean endlessNightmare = false;
 	
+	public static String[] zombieEntities = {
+			
+	};
+	
+	public static String[] skeletonEntities = {
+			
+	};
+	
+	public static String[] spiderEntities = {
+			
+	};
+	
+	public static String[] blazeEntities = {
+			
+	};
+	
 	public static final MobBuffs mobBuffs = new MobBuffs();
 	public static final Summoning summoning = new Summoning();
 	public static final ApocalypseMode apocalypseMode = new ApocalypseMode();
 	public static final Debugging debugging = new Debugging();
 	
 	public static class MobBuffs {
+		
+		public boolean mobsSeeThroughWalls = true;
+		
+		@Config.RangeInt(min = 0, max = 2)
+		public int lootSystemMode = 0;
 		
 		@Config.RangeDouble(min = 0.0D, max = Double.MAX_VALUE)
 		public double maxSpeedBoost = 0.15D;

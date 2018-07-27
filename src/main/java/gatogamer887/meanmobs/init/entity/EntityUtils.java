@@ -11,7 +11,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.AbstractSkeleton;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -151,6 +152,7 @@ public class EntityUtils {
 		}
 		
 		EntityLivingBase entitylivingbase = ((EntityLiving) summoner).getAttackTarget();
+		EntityLivingBase entitylivingbase1 = ((EntityLiving) summoner).getRevengeTarget();
 		Vec3d location = new Vec3d(summoner.posX, summoner.posY + summoner.getEyeHeight(), summoner.posZ);
 		Vec3d newMobLocation;
 		Vec3d direction;
@@ -192,6 +194,7 @@ public class EntityUtils {
 	                    summoner.world.spawnEntity(newMob);
 	                    if (MeanMobsConfig.debugging.logAssistanceSummoning) MeanMobs.logger.debug(EntityList.getKey(summoner) + " summoned an entity of type " + EntityList.getKey(newMob) + " at " + newMobLocation);
 	                    if (entitylivingbase != null) newMob.setAttackTarget(entitylivingbase);
+	                    if (entitylivingbase1 != null) newMob.setRevengeTarget(entitylivingbase1);
 	                    if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(newMob, summoner.world, (float)newMob.posX, (float)newMob.posY, (float)newMob.posZ, null)) newMob.onInitialSpawn(summoner.world.getDifficultyForLocation(new BlockPos(newMob)), (IEntityLivingData)null);
 
 	                    if (MeanMobsConfig.summoning.summoningEffects)
@@ -201,10 +204,13 @@ public class EntityUtils {
 
 		                    if (MeanMobs.side == Side.CLIENT && Minecraft.getMinecraft().world != null && Minecraft.getMinecraft().world.isRemote)
 		                    {
-		                    	for (int e1 = 0; e1 < 10; ++e1)
+		                    	double dist = summoner.getDistance(newMobLocation.x, newMobLocation.y, newMobLocation.z);
+
+		                    	for (double e1 = 0; e1 < dist; e1 += 0.2D)
 		                    	{
-		                    		location = location.add(direction);
-		                    		Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, location.x, location.y, location.z, 0.0D, 0.0D, 0.0D);
+		                    		Vec3d dir = direction.scale(e1);
+		                    		Vec3d pos = location.add(dir);
+		                    		Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.x, pos.y, pos.z, 0.0D, 0.0D, 0.0D);
 		                    	}
 
 			                    for (int e = 0; e < 40; ++e)
@@ -221,6 +227,42 @@ public class EntityUtils {
 	                }
 	            }
 	        }
+			
+		}
+		
+	}
+	
+	public static void applyZombieSpawnBuffs(EntityZombie zombie) {
+		
+		zombie.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(EntityUtils.getSpeedMod(zombie.getRNG()));
+		zombie.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(EntityUtils.getFollowRangeMod(zombie.getRNG(), 1.0D, 15.0D));
+		zombie.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(EntityUtils.getHealthMod(zombie.getRNG()));
+		
+		for (String str : MeanMobsConfig.mobBuffs.zombieGearPresets) {
+			
+			if (EntityUtils.applyGear(zombie, str)) {
+				
+				break;
+				
+			}
+			
+		}
+		
+	}
+	
+	public static void applySkeletonSpawnBuffs(AbstractSkeleton skeleton) {
+		
+		skeleton.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(EntityUtils.getSpeedMod(skeleton.getRNG()));
+		skeleton.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).applyModifier(EntityUtils.getFollowRangeMod(skeleton.getRNG(), 1.0D, 34.0D));
+		skeleton.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(EntityUtils.getHealthMod(skeleton.getRNG()));
+		
+		for (String str : MeanMobsConfig.mobBuffs.skeletonGearPresets) {
+			
+			if (EntityUtils.applyGear(skeleton, str)) {
+				
+				break;
+				
+			}
 			
 		}
 		
